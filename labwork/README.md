@@ -24,4 +24,6 @@ Sinatra makes it easy to write Ruby code that runs when a user visits a particul
 - This application is acting as a static file server
 - We are moving from working within one file [simple-router.rb](simple-router.rb) to seperating out our concerns by creating for ourselves a seperate file location where we can store code.
 - we're loading the contents of the file at "public/template.html" and sending it back to the browser.
-  - `File.read` will return a string, which is what form the browser needs
+  - `File.read` will return a string, which is what form the browser needs.
+
+# Dynamic app that renders a template to the browser
