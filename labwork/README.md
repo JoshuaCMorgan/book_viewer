@@ -2,7 +2,7 @@
 
 # How Routes Work in Sinatra
 Sinatra makes it easy to write Ruby code that runs when a user visits a particular URL.
-[Simple-router.rb](simple-router.rb)
+[simple-router.rb](simple-router.rb)
 -  When a user visits the path on the application, Sinatra will execute the body of the block. 
 -  The value that is returned by the block is then sent to the user's browser.
 -  Here, we print "Hello World!" to the browser screen.
@@ -18,3 +18,9 @@ Sinatra makes it easy to write Ruby code that runs when a user visits a particul
     </body>
   </html>
   ```
+# Serve a static website & seperate our concerns
+[template-router.rb](template-router.rb)
+- This application is acting as a static file server
+- We are moving from working within one file [simple-router.rb](simple-router.rb) to seperating out our concerns by creating for ourselves a seperate file location where we can store code.
+- we're loading the contents of the file at "public/template.html" and sending it back to the browser.
+  - `File.read` will return a string, which is what form the browser needs
