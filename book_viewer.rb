@@ -27,23 +27,18 @@ get "/" do
   erb(:home)
 end
 
-get "/search" do
-  @results = chapter_matches(params[:query])
-
-  erb(:search)
-end
 
 
 get "/chapters/:number" do
   number = params[:number].to_i
   chapter_name = @contents[number - 1]
-
+  
   # Will handle user trying to access a non-existent book chapter or specify a non-number value where the chapter number should be.
   redirect "/" unless (1..@contents.size).cover?(number)
-
+  
   @title = "Chapter #{number}: #{chapter_name}"
   @chapter = File.read("data/chp#{number}.txt")
-
+  
   erb(:chapter)
 end
 
@@ -55,6 +50,7 @@ end
 def each_chapter
   @contents.each_with_index do |name, index|
     number = index + 1
+    next if name == 'search'
     ch_contents = File.read("data/chp#{number}.txt")
     yield number, name, ch_contents
   end
@@ -63,18 +59,23 @@ end
 def chapter_matches(query)
   results = []
   return results if !query || query.empty?
-
+  
   each_chapter do |number, name, ch_contents|
     matches = {}
     ch_contents.split(/\n\n/).each_with_index do |paragraph, index|
-       if paragraph.include?(query)
+      if paragraph.include?(query)
         matches[index] = paragraph
-       end
+      end
     end
-
+    
     results << {number: number, name: name, paragraphs: matches} if matches.any?
   end
   results
 end
 
+get "/search" do
+  @results = chapter_matches(params[:query])
+
+  erb(:search)
+end
 
