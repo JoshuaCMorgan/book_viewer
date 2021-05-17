@@ -6,13 +6,6 @@ before do
   @contents = File.readlines("data/toc.txt")
 end
 
-get "/" do
-  @title = "The Adventures of Sherlock Holmes"
-  # 'readlines`: Reads the entire file specified by name as individual lines, and returns those lines in an array. 
-
-  erb(:home)
-end
-
 helpers do
 
   def in_paragraphs(text)
@@ -26,6 +19,20 @@ helpers do
   end
 
 end
+
+get "/" do
+  @title = "The Adventures of Sherlock Holmes"
+  # 'readlines`: Reads the entire file specified by name as individual lines, and returns those lines in an array. 
+  
+  erb(:home)
+end
+
+get "/search" do
+  @results = chapter_matches(params[:query])
+
+  erb(:search)
+end
+
 
 get "/chapters/:number" do
   number = params[:number].to_i
@@ -70,9 +77,4 @@ def chapter_matches(query)
   results
 end
 
-get "/search" do
-  @results = chapter_matches(params[:query])
-
-  erb(:search)
-end
 
