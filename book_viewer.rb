@@ -41,7 +41,7 @@ get "/chapters/:number" do
 end
 
 
-get default  do
+not_found  do
   redirect "/"
 end
 
