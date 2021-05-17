@@ -3,6 +3,7 @@ require "sinatra/reloader" if development?
 require "tilt/erubis"
 
 before do
+  # 'readlines`: Reads the entire file specified by name as individual lines, and returns those lines in an array. 
   @contents = File.readlines("data/toc.txt")
 end
 
@@ -22,8 +23,6 @@ end
 
 get "/" do
   @title = "The Adventures of Sherlock Holmes"
-  # 'readlines`: Reads the entire file specified by name as individual lines, and returns those lines in an array. 
-  
   erb(:home)
 end
 
@@ -50,7 +49,6 @@ end
 def each_chapter
   @contents.each_with_index do |name, index|
     number = index + 1
-    next if name == 'search'
     ch_contents = File.read("data/chp#{number}.txt")
     yield number, name, ch_contents
   end
