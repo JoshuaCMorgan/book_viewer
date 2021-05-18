@@ -48,6 +48,7 @@ end
 
 def each_chapter
   @contents.each_with_index do |name, index|
+    next if name == "Search"
     number = index + 1
     ch_contents = File.read("data/chp#{number}.txt")
     yield number, name, ch_contents
